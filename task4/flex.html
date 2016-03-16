@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Task 4 (flex)</title>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .wrap {
+        display: flex;
+        height: 100%;
+        align-content: center;
+    }
+    
+    .rect {
+        margin: auto;
+        height: 200px;
+        width: 400px;
+        background-color: #ccc;
+    }
+    
+    .lt,
+    .rb {
+        width: 50px;
+        height: 50px;
+        background-color: #fc0;
+    }
+    
+    .lt {
+        border-bottom-right-radius: 100%;
+    }
+    
+    .rb {
+        border-top-left-radius: 100%;
+        position: relative;
+        left: 350px;
+        top: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="rect">
+            <div class="lt"></div>
+            <div class="rb"></div>
+        </div>
+    </div>
+</body>
+
+</html>
