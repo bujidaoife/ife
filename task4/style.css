@@ -8,11 +8,9 @@
 	width: 400px;
 	background-color: #ccc;
 	margin: auto;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 .topleft,
