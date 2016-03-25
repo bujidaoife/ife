@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Task 26</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="console">
+    </div>
+    <div class="container">
+        <div class="universe">
+            <div class="sun"></div>
+            <div class="ship ship1 flyable">1号-100%</div>
+            <div class="ship ship2 flyable">2号-100%</div>
+            <div class="ship ship3 flyable">3号-100%</div>
+            <div class="ship ship4 flyable">4号-100%</div>
+        </div>
+        <div class="commander">
+            <button id="s1">起飞</button>
+            <button id="d1" style="display:none">销毁</button>
+            <button id="f1" disabled>飞行</button>
+            <button id="t1" style="display:none">停止</button>
+            <br>
+            <button id="s2">起飞</button>
+            <button id="d2" style="display:none">销毁</button>
+            <button id="f2" disabled>飞行</button>
+            <button id="t2" style="display:none">停止</button>
+            <br>
+            <button id="s3">起飞</button>
+            <button id="d3" style="display:none">销毁</button>
+            <button id="f3" disabled>飞行</button>
+            <button id="t3" style="display:none">停止</button>
+            <br>
+            <button id="s4">起飞</button>
+            <button id="d4" style="display:none">销毁</button>
+            <button id="f4" disabled>飞行</button>
+            <button id="t4" style="display:none">停止</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script>
+    (function() {
+        sunInit();
+        commander.init();
+        [1, 2, 3, 4].forEach(function(i) {
+            ShipFactory.getShip(i);
+        })
+    })();
+    </script>
+</body>
+
+</html>
