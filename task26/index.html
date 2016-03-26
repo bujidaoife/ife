@@ -39,6 +39,7 @@
             <button id="t4" style="display:none">停止</button>
         </div>
     </div>
+    <script src="utils.js"></script>
     <script src="main.js"></script>
     <script>
     (function() {
@@ -46,7 +47,7 @@
         commander.init();
         [1, 2, 3, 4].forEach(function(i) {
             ShipFactory.getShip(i);
-        })
+        });
     })();
     </script>
 </body>
