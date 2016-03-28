@@ -110,3 +110,8 @@ Object.defineProperties(node, {
     }
 });
 
+$('#input').on('keypress', function(e) {
+    if(e.keyCode === ENTER_CODE) {
+        node.run(this.value);
+    }
+});
