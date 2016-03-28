@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.topnum span {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#content {
+    margin-left: 30px;
+    position: relative;
+}
+
+.row {
+    display: flex;
+    counter-increment: colnum;
+}
+
+.row::before {
+    content: counter(colnum);
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+    left: -30px;
+}
+
+.block {
+    width: 30px;
+    height: 30px;
+    border: 1px #ccc solid;
+}
+
+#node {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background: blue;
+}
+
+#node::before {
+    width: 30px;
+    height: 5px;
+    background: red;
+    content: "";
+    display: block;
+}
+
+.input {
+    margin-left: 60px;
+    margin-top: 30px;
+}
+
+.console {
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 300px;
+}
+
+#console {
+    width: 100%;
+    background: #ccc;
+}
