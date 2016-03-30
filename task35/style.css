@@ -75,6 +75,11 @@
     overflow: hidden; 
 }
 
+.input li.error {
+    background: red;
+    border-radius: 10px;
+}
+
 .input textarea {
     position: absolute;
     resize: none;

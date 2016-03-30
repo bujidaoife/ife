@@ -3,35 +3,37 @@ var COLS = 10,
     PPX = 30,
     ENTER_CODE = 13;
 
-var parser = {
-    run: function() {}
-};
 
 var node = {
     el: $('#node'),
 
-    run: function(command) {
-        var cs = command.split(' ');
-        switch (cs[0]) {
+    run: function(method) {
+        switch (method) {
             case 'GO':
-                this.go();
+                return this.go(parseInt(arguments[1]) || 1);
+            case 'TRA':
+                if (arguments[1]) {
+                    return this.tra(arguments[1], parseInt(arguments[2]) || 1);
+                } else {
+                    console.log('TUN need direction arguments');
+                }
                 break;
             case 'TUN':
-                if (cs[1]) {
-                    this.turn(cs[1]);
+                if (arguments[1]) {
+                    return this.turn(arguments[1]);
                 } else {
                     console.log('TUN need direction arguments');
                 }
                 break;
             case 'MOV':
-                if (cs[1]) {
-                    this.move(cs[1]);
+                if (arguments[1]) {
+                    return this.move(arguments[1], parseInt(arguments[2]) || 1);
                 } else {
                     console.log('MOV need direction arguments');
                 }
                 break;
             default:
-                console.log('error command', command);
+                console.log('error command', method, [].slice.call(arguments, 1));
         }
     },
 
@@ -61,21 +63,43 @@ var node = {
         });
     },
 
-    go: function() {
+    go: function(n) {
         var self = this;
         var promise = this.promiseTransition(function() {
             switch (self.getRotate360() / 90) {
                 case 0:
-                    self.y--;
+                    self.y -= n;
                     break;
                 case 1:
-                    self.x++;
+                    self.x += n;
                     break;
                 case 2:
-                    self.y++;
+                    self.y += n;
                     break;
                 case 3:
-                    self.x--;
+                    self.x -= n;
+                    break;
+            }
+        });
+        return promise;
+    },
+
+    tra: function(dir, n) {
+        console.log(this);
+        var self = this;
+        var promise = this.promiseTransition(function() {
+            switch (dir) {
+                case 'TOP':
+                    self.y -= n;
+                    break;
+                case 'RIG':
+                    self.x += n;
+                    break;
+                case 'BOT':
+                    self.y += n;
+                    break;
+                case 'LEF':
+                    self.x -= n;
                     break;
             }
         });
@@ -102,13 +126,13 @@ var node = {
         return promise;
     },
 
-    move: function(dir) {
+    move: function(dir, n) {
         var self = this;
         return this.turn(dir)
             .then(function() {
-                return self.go();
+                return self.go(n);
             });
-    }
+    },
 };
 
 Object.defineProperties(node, {
@@ -174,14 +198,39 @@ function updateLines() {
 }
 
 function syncScroll() {
-    console.log($('.input li'))
     if ($('.input li')[0]) {
         $('.input li')[0].style.marginTop = -$('.input .code').scrollTop() + 'px'
     }
 }
 
-function run() {
+function parse(command) {
+    return command.split(' ');
+}
 
+function run() {
+    var commands = $('.input .code').val().split('\n');
+    var command;
+    var p = Promise.resolve();
+    for (var i = 0; i < commands.length; i++) {
+        p = p.then((function() {
+            var index = i;
+            return function() {
+                var command = parse(commands[index]);
+                if (command.length) {
+                    return node.run.apply(node, command);
+                } else {
+                    $('.lines li')[index].classList.add('error');
+                }
+            };
+        })(), (function() {
+            var index = i;
+            return function() {
+                $('.lines li')[index].classList.add('error');
+                return Promise.reject();
+            };
+        })());
+    }
+    return p;
 }
 
 function reset() {

@@ -16,6 +16,13 @@ var node = {
             case 'GO':
                 this.go();
                 break;
+            case 'TRA':
+                if (cs[1]) {
+                    this.tra(cs[1]);
+                } else {
+                    console.log('TRA need direction arguments');
+                }
+                break;
             case 'TUN':
                 if (cs[1]) {
                     this.turn(cs[1]);
@@ -75,6 +82,27 @@ var node = {
                     self.y++;
                     break;
                 case 3:
+                    self.x--;
+                    break;
+            }
+        });
+        return promise;
+    },
+
+    tra: function(dir) {
+        var self = this;
+        var promise = this.promiseTransition(function() {
+            switch (dir) {
+                case 'TOP':
+                    self.y--;
+                    break;
+                case 'RIG':
+                    self.x++;
+                    break;
+                case 'BOT':
+                    self.y++;
+                    break;
+                case 'LEF':
                     self.x--;
                     break;
             }
